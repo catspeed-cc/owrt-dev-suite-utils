@@ -26,4 +26,4 @@ This script detects which GPIO pin corresponds to a physical button by monitorin
 6. if the router crashes or reboots, remove that GPIO from your probe list and reboot
 
 ## Disclaimer
-mooleshacat and catspeed-cc are not responsible for damage to hardware and to proceed at your own risk.
+mooleshacat and catspeed-cc are not responsible for damage to hardware - proceed at your own risk.
