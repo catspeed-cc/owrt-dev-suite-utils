@@ -32,13 +32,13 @@ for pin in $LED_CANDIDATES; do
     echo "out" > /sys/class/gpio/gpio$GPIO/direction
 
     # 2) Set high for 2 seconds
-    echo "Testing Logical GPIO $pin (Actual: $GPIO) -> Setting HIGH..."
-    echo "1" > /sys/class/gpio/gpio$GPIO/value
+    echo "Testing Logical GPIO $pin (Actual: $GPIO) -> Setting LOW..."
+    echo "0" > /sys/class/gpio/gpio$GPIO/value
     sleep 2
 
     # 3) Set low
-    echo "Setting LOW..."
-    echo "0" > /sys/class/gpio/gpio$GPIO/value
+    echo "Setting HIGH..."
+    echo "1" > /sys/class/gpio/gpio$GPIO/value
     
     # 4) Unconfigure
     echo "$GPIO" > /sys/class/gpio/unexport 2>/dev/null
