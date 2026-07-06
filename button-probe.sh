@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # --- CONFIGURATION ---
-BUTTON_CANDIDATES="10 11 12 13 14 15 16 17 18 19 20 21 22 23"
+BUTTON_CANDIDATES="5 18 36 37 42 43 44 45 46 47 49 51 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99"
 
 # Auto-detect Base Offset (same logic as usb-power-probe.sh)
 BASE=$(cat /sys/kernel/debug/gpio 2>/dev/null | grep -E "pinctrl-msm|1000000.pinctrl" | head -1 | sed -n 's/.*GPIOs \([0-9]*\)-.*/\1/p')
