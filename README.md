@@ -2,7 +2,11 @@
 
 This repository contains utility scripts designed to help identify GPIO pins when their hardware functions are unknown. Each script is tailored to a specific probing use case.
 
-Both scripts include configuration variables at the top that you may need to adjust, such as the list of GPIOs to scan. It is generally recommended to avoid GPIOs that are already in use by the system. You can check currently active pins by running `cat /sys/kernel/debug/gpio` and excluding any that appear configured. Based on experience, the highest-numbered GPIOs are often left unconfigured by default, making them a safe starting point for scanning. Please note that probing certain pins may occasionally cause your device to crash or reboot. If this happens, simply reboot the device and remove the problematic GPIO from your scan list before trying again.
+Both scripts include configuration variables at the top that you may need to adjust, such as the list of GPIOs to scan. It is generally recommended to avoid GPIOs that are already in use by the system. You can check currently active pins by running `cat /sys/kernel/debug/gpio` and excluding any that appear configured.
+
+Based on experience, the lower-numbered GPIOs are typically things like nand, switches, etc & the higher-numbered GPIOs are often left unconfigured by default - making them a safe starting point for scanning.
+
+#### Please note that probing certain pins may occasionally cause your device to crash or reboot. If this happens, simply reboot the device and remove the problematic GPIO from your scan list before trying again.
 
 ## `usb-power-probe.sh`
 This script was originally developed to identify the USB power/enable line on the TEW-829DRU router. On this specific hardware, GPIOs are offset by 512 (meaning logical pin 0 corresponds to actual GPIO 512, logical pin 1 to 513, and so on). Ensure that the base offset matches your target device's architecture.
