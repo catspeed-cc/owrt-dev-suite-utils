@@ -1,29 +1,29 @@
 # gpio-probe
 
-Use these tools for probing GPIOs if you are unsure which pins correspond to specific hardware functions. Each script handles a different use case.
+This repository contains utility scripts designed to help identify GPIO pins when their hardware functions are unknown. Each script is tailored to a specific probing use case.
 
-Depending on the script, there are configuration variables at the top that you may want to change (such as the list of GPIOs to probe). Typically, you want to avoid GPIOs that are already in use. Run `cat /sys/kernel/debug/gpio` and avoid pins that appear configured. In my experience, the last batch of GPIOs were mostly default/unconfigured, making them a safe place to start probing. Sometimes probing will cause a crash or reset your device. You just have to reboot and start over, removing that GPIO from your probe list.
+Both scripts include configuration variables at the top that you may need to adjust, such as the list of GPIOs to scan. It is generally recommended to avoid GPIOs that are already in use by the system. You can check currently active pins by running `cat /sys/kernel/debug/gpio` and excluding any that appear configured. Based on experience, the highest-numbered GPIOs are often left unconfigured by default, making them a safe starting point for scanning. Please note that probing certain pins may occasionally cause your device to crash or reboot. If this happens, simply reboot the device and remove the problematic GPIO from your scan list before trying again.
 
 ## `usb-power-probe.sh`
-This script was used to probe the USB power/enable line on the TEW-829DRU router. On this device, the GPIOs are offset by 512 (so logical pin 0 is actual GPIO 512, pin 1 is 513, etc.). You must ensure the base offset is correct for your specific device.
+This script was originally developed to identify the USB power/enable line on the TEW-829DRU router. On this specific hardware, GPIOs are offset by 512 (meaning logical pin 0 corresponds to actual GPIO 512, logical pin 1 to 513, and so on). Ensure that the base offset matches your target device's architecture.
 
-1. select a bunch of GPIOs to probe (use `cat /sys/kernel/debug/gpio` to list all)
-2. edit the script and put the logical numbers in `CANDIDATES`
-3. change the `BASE` offset if required
-4. find a USB stick with an LED on it and plug it into the port
-5. start the probing `./usb-power-probe.sh`
-6. monitor both the console output for `dmesg` messages related to USB and the USB stick for a flashing light
-7. if the router crashes or reboots, remove that GPIO from your probe list
+1. Identify a list of GPIOs to scan (use `cat /sys/kernel/debug/gpio` to view all available pins).
+2. Open the script and add your chosen logical pin numbers to the `CANDIDATES` variable.
+3. Adjust the `BASE` offset if necessary for your device.
+4. Insert a USB flash drive with an LED indicator into the port you wish to test.
+5. Run the script using `./usb-power-probe.sh`.
+6. Monitor both the terminal output for USB-related `dmesg` messages and the USB drive's LED for any activity or flashing.
+7. If the router crashes or reboots, remove that specific GPIO from your `CANDIDATES` list and try again.
 
 ## `button-probe.sh`
-This script detects which GPIO pin corresponds to a physical button by monitoring its state changes. It exports each candidate GPIO as an input, reads its initial state, waits for you to press and release the button, and reports if the value changed.
+This script identifies which GPIO pin corresponds to a physical button by monitoring its electrical state changes. It exports each candidate GPIO as an input, records its initial state, prompts you to press and release the button, and reports whether the value changed.
 
-1. edit the script and add your candidate logical GPIO numbers to `BUTTON_CANDIDATES`
-2. verify or change the auto-detected base offset at the top of the script
-3. start the probing `./button-probe.sh`
-4. follow the on-screen prompts: hold the button, press Enter, release the button, press Enter
-5. if a match is found, you'll be asked whether to continue scanning other pins
-6. if the router crashes or reboots, remove that GPIO from your probe list and reboot
+1. Open the script and add your candidate logical GPIO numbers to the `BUTTON_CANDIDATES` variable.
+2. Verify or manually set the auto-detected base offset at the top of the script if needed.
+3. Run the script using `./button-probe.sh`.
+4. Follow the on-screen instructions: hold down the button and press Enter, then release it and press Enter again.
+5. If a matching pin is found, you will be prompted to decide whether to continue scanning the remaining pins.
+6. If the router crashes or reboots, remove that GPIO from your `BUTTON_CANDIDATES` list, reboot the device, and restart the process.
 
 ## Disclaimer
-mooleshacat and catspeed-cc are not responsible for damage to hardware - proceed at your own risk.
+mooleshacat and catspeed-cc are not responsible for any hardware damage caused by using these tools. Proceed at your own risk.
