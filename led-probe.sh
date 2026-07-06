@@ -24,24 +24,37 @@ for pin in $LED_CANDIDATES; do
 
     GPIO=$((pin + BASE))
 
-    # 1) Export & configure as output
-    if ! echo "$GPIO" > /sys/class/gpio/export 2>/dev/null; then
-        echo "Skipping Logical GPIO $pin (Actual: $GPIO): already exported or invalid."
-        continue
-    fi
-    echo "out" > /sys/class/gpio/gpio$GPIO/direction
+    # Unexport GPIO before each loop iteration
+    echo "$GPIO" > /sys/class/gpio/unexport 2>/dev/null || true
+    sleep 1
 
-    # 2) Set high for 2 seconds
-    echo "Testing Logical GPIO $pin (Actual: $GPIO) -> Setting LOW..."
-    echo "0" > /sys/class/gpio/gpio$GPIO/value
+    # Export GPIO
+    echo "$GPIO" > /sys/class/gpio/export 2>/dev/null && \
+        echo "Successfully exported Logical GPIO $pin (Actual: $GPIO)." || \
+        { echo "Failed to export Logical GPIO $pin (Actual: $GPIO)."; continue; }
+    sleep 1
+
+    # Configure as output
+    echo "out" > /sys/class/gpio/gpio$GPIO/direction 2>/dev/null && \
+        echo "Successfully set direction for Logical GPIO $pin (Actual: $GPIO)." || \
+        { echo "Failed to set direction for Logical GPIO $pin (Actual: $GPIO)."; continue; }
+    sleep 1
+
+    # Set HIGH for 2 seconds
+    echo "Testing Logical GPIO $pin (Actual: $GPIO) -> Setting HIGH..."
+    echo "1" > /sys/class/gpio/gpio$GPIO/value 2>/dev/null && \
+        echo "Successfully set HIGH." || \
+        { echo "Failed to set HIGH for Logical GPIO $pin (Actual: $GPIO)."; }
     sleep 2
 
-    # 3) Set low
-    echo "Setting HIGH..."
-    echo "1" > /sys/class/gpio/gpio$GPIO/value
-    
-    # 4) Unconfigure
-    echo "$GPIO" > /sys/class/gpio/unexport 2>/dev/null
+    # Set LOW
+    echo "Setting LOW..."
+    echo "0" > /sys/class/gpio/gpio$GPIO/value 2>/dev/null && \
+        echo "Successfully set LOW." || \
+        { echo "Failed to set LOW for Logical GPIO $pin (Actual: $GPIO)."; }
+
+    # Unconfigure at end of iteration
+    echo "$GPIO" > /sys/class/gpio/unexport 2>/dev/null || true
     echo "---"
 done
 
