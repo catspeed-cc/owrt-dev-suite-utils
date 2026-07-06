@@ -36,19 +36,19 @@ for pin in $LED_CANDIDATES; do
         { echo "Failed to set direction for Logical GPIO $pin (Actual: $GPIO)."; continue; }
     sleep 1
 
-    # Set HIGH for 2 seconds
-    echo "Testing Logical GPIO $pin (Actual: $GPIO) -> Setting HIGH..."
-    echo "1" > /sys/class/gpio/gpio$GPIO/value 2>/dev/null && \
-        echo "Successfully set HIGH." || \
-        { echo "Failed to set HIGH for Logical GPIO $pin (Actual: $GPIO)."; }
-    sleep 2
-
-    # Set LOW for 2 seconds
+    # Set LOW for 5 seconds
     echo "Setting LOW..."
     echo "0" > /sys/class/gpio/gpio$GPIO/value 2>/dev/null && \
         echo "Successfully set LOW." || \
         { echo "Failed to set LOW for Logical GPIO $pin (Actual: $GPIO)."; }
-    sleep 2
+    sleep 5
+
+    # Set HIGH for 5 seconds
+    echo "Testing Logical GPIO $pin (Actual: $GPIO) -> Setting HIGH..."
+    echo "1" > /sys/class/gpio/gpio$GPIO/value 2>/dev/null && \
+        echo "Successfully set HIGH." || \
+        { echo "Failed to set HIGH for Logical GPIO $pin (Actual: $GPIO)."; }
+    sleep 5
 
     # Unexport at end of iteration
     echo "$GPIO" > /sys/class/gpio/unexport 2>/dev/null || true
