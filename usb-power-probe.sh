@@ -11,7 +11,7 @@ BASE=$(cat /sys/kernel/debug/gpio 2>/dev/null | grep -E "pinctrl-msm|1000000.pin
 # Fallback if auto-detect fails (IPQ4019 is usually 412)
 if [ -z "$BASE" ]; then
     echo "Warning: Could not auto-detect GPIO base. Assuming 412."
-    BASE=412
+    BASE=512 # TEW-829DRU is 512 not 412 - assume this is safe guess.
 fi
 
 echo "Detected GPIO Base Offset: $BASE"
