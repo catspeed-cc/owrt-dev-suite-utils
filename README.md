@@ -8,6 +8,13 @@ Based on experience, the lower-numbered GPIOs are typically things like nand, sw
 
 #### Please note that probing certain pins may occasionally cause your device to crash or reboot. If this happens, simply reboot the device and remove the problematic GPIO from your scan list before trying again.
 
+## finding GPIOs to probe
+You can find GPIOs to probe by listing them in two ways:
+- `cat /sys/kernel/debug/gpio` to get all of them
+- `cat /sys/kernel/debug/gpio | grep "in  low  func0 2mA pull down"` to get likely unconfigured ones
+
+When including them in the script do not put 'GPIO' just put the numbers.
+
 ## `usb-power-probe.sh`
 This script was originally developed to identify the USB power/enable line on the TEW-829DRU router. On this specific hardware, GPIOs are offset by 512 (meaning logical pin 0 corresponds to actual GPIO 512, logical pin 1 to 513, and so on). Ensure that the base offset matches your target device's architecture.
 
