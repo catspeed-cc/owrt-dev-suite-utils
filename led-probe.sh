@@ -19,16 +19,16 @@ echo "Press Ctrl+C at any time to abort."
 echo "---"
 
 # Trap handler to clean up all GPIOs on Ctrl+C or script exit
-cleanup() {
-    echo ""
-    echo "Cleaning up GPIO exports..."
-    for pin in $LED_CANDIDATES; do
-        GPIO=$((pin + BASE))
-        echo "$GPIO" > /sys/class/gpio/unexport 2>/dev/null || true
-    done
-    echo "Cleanup complete."
-}
-trap cleanup INT EXIT
+#cleanup() {
+#    echo ""
+#    echo "Cleaning up GPIO exports..."
+#    for pin in $LED_CANDIDATES; do
+#        GPIO=$((pin + BASE))
+#        echo "$GPIO" > /sys/class/gpio/unexport 2>/dev/null || true
+#    done
+#    echo "Cleanup complete."
+#}
+#trap cleanup INT EXIT
 
 STOP=0
 for pin in $LED_CANDIDATES; do
