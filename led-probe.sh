@@ -24,11 +24,7 @@ for pin in $LED_CANDIDATES; do
 
     GPIO=$((pin + BASE))
 
-    # Unexport GPIO before each loop iteration
-    echo "$GPIO" > /sys/class/gpio/unexport 2>/dev/null || true
-    sleep 1
-
-    # Export GPIO
+    # Export GPIO once
     echo "$GPIO" > /sys/class/gpio/export 2>/dev/null && \
         echo "Successfully exported Logical GPIO $pin (Actual: $GPIO)." || \
         { echo "Failed to export Logical GPIO $pin (Actual: $GPIO)."; continue; }
@@ -47,13 +43,14 @@ for pin in $LED_CANDIDATES; do
         { echo "Failed to set HIGH for Logical GPIO $pin (Actual: $GPIO)."; }
     sleep 2
 
-    # Set LOW
+    # Set LOW for 2 seconds
     echo "Setting LOW..."
     echo "0" > /sys/class/gpio/gpio$GPIO/value 2>/dev/null && \
         echo "Successfully set LOW." || \
         { echo "Failed to set LOW for Logical GPIO $pin (Actual: $GPIO)."; }
+    sleep 2
 
-    # Unconfigure at end of iteration
+    # Unexport at end of iteration
     echo "$GPIO" > /sys/class/gpio/unexport 2>/dev/null || true
     echo "---"
 done
