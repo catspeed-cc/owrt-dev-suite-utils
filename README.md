@@ -8,6 +8,13 @@ Based on experience, the lower-numbered GPIOs are typically things like nand, sw
 
 #### Please note that probing certain pins may occasionally cause your device to crash or reboot. If this happens, simply reboot the device and remove the problematic GPIO from your scan list before trying again.
 
+## 🛠️ DOpenWRT Developer Suite
+
+`owrt-dev-suite-utils` is integrated into another GPLv3 project `owrt-dev-suite` which contains an advanced and highly customizable build script for OpenWRT.
+
+For advanced and highly customizable developer build script for OpenWRT, see the dedicated **GPLv3 owrt-dev-suite**:
+👉 [github.com/catspeed-cc/owrt-dev-suite](https://github.com/catspeed-cc/owrt-dev-suite)
+
 ## finding GPIOs to probe
 You can find GPIOs to probe by listing them in two ways:
 - `cat /sys/kernel/debug/gpio` to get all of them
