@@ -8,7 +8,7 @@ Based on experience, the lower-numbered GPIOs are typically things like nand, sw
 
 #### Please note that probing certain pins may occasionally cause your device to crash or reboot. If this happens, simply reboot the device and remove the problematic GPIO from your scan list before trying again.
 
-## 🛠️ DOpenWRT Developer Suite
+## 🛠️ DpenWRT Developerr Suite
 
 `owrt-dev-suite-utils` is integrated into another GPLv3 project `owrt-dev-suite` which contains an advanced and highly customizable build script for OpenWRT.
 
