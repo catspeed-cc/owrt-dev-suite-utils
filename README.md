@@ -1,4 +1,4 @@
-# gpio-probe
+# owrt-dev-suite-utils
 
 This repository contains utility scripts designed to help identify GPIO pins when their hardware functions are unknown. Each script is tailored to a specific probing use case.
 
@@ -10,7 +10,7 @@ Based on experience, the lower-numbered GPIOs are typically things like nand, sw
 
 ## 🛠️ OpenWRT Developer Suite
 
-`owrt-dev-suite-utils` is integrated into another GPLv3 project `owrt-dev-suite` which contains an advanced and highly customizable build script for OpenWRT.
+`owrt-dev-suite-utils` is integrated into another GPLv3-or-later project `owrt-dev-suite` which contains an advanced and highly customizable build script for OpenWRT.
 
 For advanced and highly customizable developer build script for OpenWRT, see the dedicated **GPLv3 `owrt-dev-suite`**
 👉 [github.com/catspeed-cc/owrt-dev-suite](https://github.com/catspeed-cc/owrt-dev-suite)
