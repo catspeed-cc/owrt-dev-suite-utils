@@ -8,6 +8,23 @@ Based on experience, the lower-numbered GPIOs are typically things like nand, sw
 
 #### Please note that probing certain pins may occasionally cause your device to crash or reboot. If this happens, simply reboot the device and remove the problematic GPIO from your scan list before trying again.
 
+## ⚠️ LICENSE WARNING: GPLv3 INCOMPATIBILITY⚠️
+
+These scripts are licensed under GPLv3-or-later.  It is NOT compatible with GPLv2-only projects (such as the Linux Kernel or OpenWrt).
+
+DO NOT use this script to build binaries for distribution if the underlying source code is licensed GPLv2-only.  Doing so creates a license conflict that makes the resulting binary undistributable and constitutes a copyright violation.
+
+This script is intended for:
+
+- Private use only (no distribution of binaries).
+- Projects that are fully GPLv3 or GPLv2-or-later (where the user chooses GPLv3).
+
+If you need a script for a fully compliant GPLv3-or-later project you are free to use and modify this one to suit your needs.
+
+If you need a script for OpenWrt, use the GPLv2-or-later version in the official repository if you intend to distribute binaries (coming soon).
+
+mooleshacat / catspeed.cc is not responsible for any potential license violations you create for yourself.
+
 ## 🛠️ OpenWRT Developer Suite
 
 `owrt-dev-suite-utils` is integrated into another GPLv3-or-later project `owrt-dev-suite` which contains an advanced and highly customizable build script for OpenWRT.
